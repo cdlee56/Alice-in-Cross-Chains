@@ -9,7 +9,8 @@ import { ContractService, Web3Service } from '../services/services';
 import { HomeComponent } from './home/home.component';
 
 import {routing} from './app.routing';
-import { PrecinctComponent } from './precinct/precinct.component'
+import { PrecinctComponent } from './precinct/precinct.component';
+import { ActorComponent } from './actor/actor.component'
 
 const SERVICES = [
   ContractService,
@@ -28,6 +29,7 @@ const SERVICES = [
     AppComponent,
     HomeComponent,
     PrecinctComponent,
+    ActorComponent,
   ],
   providers: [SERVICES],
   bootstrap: [AppComponent]

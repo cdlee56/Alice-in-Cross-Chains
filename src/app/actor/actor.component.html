@@ -1,0 +1,31 @@
+  <!-- [ngStyle]="PaddingStyle" -->
+  <div class="container" >
+    <h2 class="title">
+      Enter Your Details
+    </h2>
+
+    <div class="column">
+      <div class="row" style="width:500px">
+        <input [(ngModel)]="Actor.Name" class="input is-primary" type="text" placeholder="Your Name" >
+      </div>
+
+      <br>
+
+      <div class="row" style="width:500px">
+
+        <input [(ngModel)]="Actor.BadgeNumber" class="input is-primary" type="text" placeholder="Your Badge Number" >
+      </div>
+      <br>
+
+      <div class="row" style="width:500px">
+
+        <input [(ngModel)]="Actor.Title" class="input is-primary" type="text" placeholder="Your Title" >
+      </div>
+      <br>
+
+      <div class="row" style="width:500px">
+
+        <a class="button is-primary" (click)="Submit()">Submit</a>
+      </div>
+    </div>
+  </div>

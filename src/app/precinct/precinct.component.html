@@ -5,21 +5,21 @@
 
   <div class="column">
     <div class="row" style="width:500px">
-      <h2>
-        <div *ngIf="ProfEmployer == 'Nobody'">
-          <a class="button is-primary" (click)="Claim()">Hire Unemployed Prof for 0.0021ETH</a>
-        </div>
-
-        <div *ngIf="ProfEmployer == 'You'">
-          <a *ngIf="CurrentBid != 'None'" class="button is-primary" (click)="Accept()">Accept Offer</a>
-        </div>
-
-        <div *ngIf="(ProfEmployer != 'Nobody') && (ProfEmployer != 'You')">
-          <input [(ngModel)]="BidAmount" class="input is-primary" type="number" placeholder="Your Offer (ETH)" >
-
-          <a class="button is-primary" (click)="Bid()">Make An Offer</a>
-        </div>
-      </h2>
+      <input [(ngModel)]="Precinct.Name" class="input is-primary" type="texr" placeholder="New Pricinct Name" >
     </div>
+
+    <br>
+
+    <div class="row" style="width:500px">
+
+      <input [(ngModel)]="Precinct.Address" class="input is-primary" type="texr" placeholder="New Pricinct Address" >
+    </div>
+    <br>
+<!--     <div class="row" style="width:500px">
+
+      <a class="button is-primary" (click)="Submit()">Submit</a>
+    </div> -->
+
+    <app-actor [isEmbedded]="true" (ResultActor)="Submit($event)"></app-actor>
   </div>
 </div>
