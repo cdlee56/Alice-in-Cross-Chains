@@ -22,8 +22,8 @@ contract ChainOfCustody {
         string Name; 
     }
 
-    mapping (address => Actor) actorMap;
-    mapping (uint => Precinct) precinctMap;
+    mapping (address => Actor) public actorMap;
+    mapping (uint => Precinct) public precinctMap;
 
     function NewPrecinct(
     	uint precinctID,

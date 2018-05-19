@@ -17,12 +17,10 @@ export class ContractService {
   }
 
   NewPrecinct(newPrecinct: Precinct, Sherif: Actor): Observable<any> {
-    let contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          contract = instance;
-          return contract.NewPrecinct(
+          return instance.NewPrecinct(
             newPrecinct.Name,
             newPrecinct.Address,
             Sherif.Name,
@@ -45,12 +43,10 @@ export class ContractService {
   }
 
   NewActor(actor: Actor): Observable<any> {
-    let contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          contract = instance;
-          return contract.NewActor(
+          return instance.NewActor(
             actor.Name,
             actor.BadgeNumber,
             actor.Title,
@@ -71,34 +67,139 @@ export class ContractService {
     });
   }
 
-  GetPrecinctByActor(): Observable<any> {
+  public GetPrecinctByActor(): Observable<any> {
     return Observable.create(observer => {
-      this.GetActor().subscribe(
-        Actor => {
-          this.GetPrecinct(Actor.PrecinctID).subscribe(
-            Precinct => {
-              observer.next(Precinct);
-              observer.complete();
-            },
-            err => {
-              observer.error(err);
-            }
-          );
-        },
-        err => {
-          observer.error(err);
-        }
-      );
+      // this.GetActor().subscribe(
+      //   Actor => {
+      //     this.GetPrecinct(Actor.PrecinctID).subscribe(
+      //       Precinct => {
+      //         observer.next(Precinct);
+      //         observer.complete();
+      //       },
+      //       err => {
+      //         observer.error(err);
+      //       }
+      //     );
+      //   },
+      //   err => {
+      //     observer.error(err);
+      //   }
+      // );
+      observer.next({
+        ID: 1,
+        Name: "bobs precinct",
+        Address: "123 bob st",
+        Evidence: [
+          {
+            ID: 1,
+            Title: "bandana B",
+            What:
+              "A blue bandana found on the living room floor of suspects house",
+            img:
+              "https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dw90f825e4/images/icing/hi-res/98274_1.jpg?sw=734&sh=734&sm=fit",
+            Actions: [
+              {
+                Who: {
+                  Name: "officer bob",
+                  BadgeNumber: "4376893205",
+                  Title: "Detective"
+                },
+                What: "discovered on floor of living room",
+                When: "11:09 PM - 1 Jan 2016",
+                Location: "123 baker st."
+              }
+            ]
+          },
+          {
+            ID: 1,
+            Title: "bandana B",
+            What:
+              "A blue bandana found on the living room floor of suspects house",
+            img:
+              "https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dw90f825e4/images/icing/hi-res/98274_1.jpg?sw=734&sh=734&sm=fit",
+            Actions: [
+              {
+                Who: {
+                  Name: "officer bob",
+                  BadgeNumber: "4376893205",
+                  Title: "Detective"
+                },
+                What: "discovered on floor of living room",
+                When: "11:09 PM - 1 Jan 2016",
+                Location: "123 baker st."
+              }
+            ]
+          },
+          {
+            ID: 1,
+            Title: "bandana B",
+            What:
+              "A blue bandana found on the living room floor of suspects house",
+            img:
+              "https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dw90f825e4/images/icing/hi-res/98274_1.jpg?sw=734&sh=734&sm=fit",
+            Actions: [
+              {
+                Who: {
+                  Name: "officer bob",
+                  BadgeNumber: "4376893205",
+                  Title: "Detective"
+                },
+                What: "discovered on floor of living room",
+                When: "11:09 PM - 1 Jan 2016",
+                Location: "123 baker st."
+              }
+            ]
+          },
+          {
+            ID: 1,
+            Title: "bandana B",
+            What:
+              "A blue bandana found on the living room floor of suspects house",
+            img:
+              "https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dw90f825e4/images/icing/hi-res/98274_1.jpg?sw=734&sh=734&sm=fit",
+            Actions: [
+              {
+                Who: {
+                  Name: "officer bob",
+                  BadgeNumber: "4376893205",
+                  Title: "Detective"
+                },
+                What: "discovered on floor of living room",
+                When: "11:09 PM - 1 Jan 2016",
+                Location: "123 baker st."
+              }
+            ]
+          },
+          {
+            ID: 1,
+            Title: "bandana B",
+            What:
+              "A blue bandana found on the living room floor of suspects house",
+            img:
+              "https://www.icing.com/dw/image/v2/BBTK_PRD/on/demandware.static/-/Sites-master-catalog/default/dw90f825e4/images/icing/hi-res/98274_1.jpg?sw=734&sh=734&sm=fit",
+            Actions: [
+              {
+                Who: {
+                  Name: "officer bob",
+                  BadgeNumber: "4376893205",
+                  Title: "Detective"
+                },
+                What: "discovered on floor of living room",
+                When: "11:09 PM - 1 Jan 2016",
+                Location: "123 baker st."
+              }
+            ]
+          },
+        ]
+      });
     });
   }
 
   GetActor(): Observable<any> {
-    let contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          contract = instance;
-          return contract.actorMap.call({
+          return instance.actorMap.call(this.Web3Ser.Account, {
             from: this.Web3Ser.Account
           });
         })
@@ -113,12 +214,10 @@ export class ContractService {
   }
 
   GetPrecinct(PrecinctID): Observable<any> {
-    let contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          contract = instance;
-          return contract.precinctMap.call(PrecinctID, {
+          return instance.precinctMap.call(PrecinctID, {
             from: this.Web3Ser.Account
           });
         })
@@ -133,22 +232,20 @@ export class ContractService {
   }
 
   GetPermission(): Observable<any> {
-      let contract;
-      return Observable.create(observer => {
-        this.ChainOfCustody.deployed()
-          .then(instance => {
-            contract = instance;
-            return contract.addrToPerson.call({
-              from: this.Web3Ser.Account
-            });
-          })
-          .then((addrToPerson: any) => {
-            observer.next(addrToPerson);
-            observer.complete();
-          })
-          .catch(e => {
-            observer.error(e);
+    return Observable.create(observer => {
+      this.ChainOfCustody.deployed()
+        .then(instance => {
+          return instance.actorMap.call(this.Web3Ser.Account, {
+            from: this.Web3Ser.Account
           });
-      });
+        })
+        .then((Actor: any) => {
+          observer.next(Actor);
+          observer.complete();
+        })
+        .catch(e => {
+          observer.error(e);
+        });
+    });
   }
 }
