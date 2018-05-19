@@ -10,7 +10,10 @@ import { HomeComponent } from './home/home.component';
 
 import {routing} from './app.routing';
 import { PrecinctComponent } from './precinct/precinct.component';
-import { ActorComponent } from './actor/actor.component'
+import { ActorComponent } from './actor/actor.component';
+import { ListComponent } from './list/list.component';
+import { EvidenceComponent } from './evidence/evidence.component';
+import { ActionsComponent } from './actions/actions.component'
 
 const SERVICES = [
   ContractService,
@@ -30,6 +33,9 @@ const SERVICES = [
     HomeComponent,
     PrecinctComponent,
     ActorComponent,
+    ListComponent,
+    EvidenceComponent,
+    ActionsComponent,
   ],
   providers: [SERVICES],
   bootstrap: [AppComponent]
