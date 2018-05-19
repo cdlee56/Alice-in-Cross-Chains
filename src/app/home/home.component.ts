@@ -5,8 +5,6 @@ import {
   Web3Service
 } from '../../services/services'
 
-const MAX_PROFS = 15200
-const LOAD_NUM = 1000
 
 @Component({
   selector: 'app-home',
@@ -16,7 +14,7 @@ const LOAD_NUM = 1000
 export class HomeComponent implements OnInit {
 
   constructor(
-    private CryptoProfSer: ContractService,
+    private ContractSer: ContractService,
     private Web3Ser: Web3Service,
     ) {
    }

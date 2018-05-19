@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { Web3Service } from './web3.service'
 
-const CryptoProfsArtifacts = require('../../build/contracts/CryptoProfsMarket.json');
+const ContractArtifacts = require('../../build/contracts/Tracker.json');
 const contract = require('truffle-contract');
 
 //simple truffle template project
@@ -11,22 +11,22 @@ const contract = require('truffle-contract');
 @Injectable()
 export class ContractService {
 
-	CryptoProf = contract(CryptoProfsArtifacts);
+	Tracker = contract(ContractArtifacts);
 
   constructor(
   	private Web3Ser: Web3Service,
   	) {
-  	this.CryptoProf.setProvider(Web3Ser.Web3.currentProvider);
+  	this.Tracker.setProvider(Web3Ser.Web3.currentProvider);
   }
 
   BidProf(ProfID: number, Amount: number): Observable<any>{
-    let profContract;
+    let contract;
     return Observable.create(observer => {
-      this.CryptoProf
+      this.Tracker
         .deployed()
         .then(instance => {
-          profContract = instance;
-          return profContract.BidProf(ProfID, {
+          contract = instance;
+          return contract.BidProf(ProfID, {
             value: this.Web3Ser.Web3.toWei(Amount, "ether"),
             from: this.Web3Ser.Account
           });
@@ -43,13 +43,13 @@ export class ContractService {
   }
 
   GetOwner(ProfID: number): Observable<any>{
-    let profContract;
+    let contract;
     return Observable.create(observer => {
-      this.CryptoProf
+      this.Tracker
         .deployed()
         .then(instance => {
-          profContract = instance;
-          return profContract.profToOwner.call(ProfID, {
+          contract = instance;
+          return contract.profToOwner.call(ProfID, {
             from: this.Web3Ser.Account
           });
         })

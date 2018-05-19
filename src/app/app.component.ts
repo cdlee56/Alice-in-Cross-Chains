@@ -20,8 +20,6 @@ export class AppComponent {
   status: string;
   canBeNumber = canBeNumber;
 
-  ProfID: number;
-
   constructor(
     private _ngZone: NgZone,
     ) {
