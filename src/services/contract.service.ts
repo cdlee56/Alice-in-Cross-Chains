@@ -44,6 +44,33 @@ export class ContractService {
     });
   }
 
+  NewActor(actor: Actor): Observable<any> {
+    let contract;
+    return Observable.create(observer => {
+      this.ChainOfCustody.deployed()
+        .then(instance => {
+          contract = instance;
+          return contract.NewActor(
+            actor.Name,
+            actor.BadgeNumber,
+            actor.Title,
+            actor.IsAdmin,
+            {
+              from: this.Web3Ser.Account
+            }
+          );
+        })
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch(e => {
+          console.log(e);
+          observer.error(e);
+        });
+    });
+  }
+
   GetPermission(): Observable<any> {
     let contract;
     return Observable.create(observer => {

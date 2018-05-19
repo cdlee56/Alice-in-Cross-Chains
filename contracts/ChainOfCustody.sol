@@ -16,11 +16,23 @@ contract ChainOfCustody {
     function ChainOfCustody() public payable {
     }
 
-    function ClaimProf(uint _profId) 
-    payable
-    onlyOwnedBy(0x00, _profId)
+    function NewPrecinct(
+        string precinctName, 
+        string precinctAddress, 
+        string sherifName, 
+        string badgeNumber, 
+        string title) 
     public {
-        require(msg.value == 2146291208791208);
-    	profToOwner[_profId] = msg.sender;
+        //todo
+    }
+
+    function NewActor(
+        string precinctID, 
+        string name, 
+        string badgeNumber, 
+        string title,
+        string isAdmin) 
+    public {
+        //todo
     }
 }

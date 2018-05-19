@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ContractService } from "../../services/services";
 import {Actor} from '../../models/models'
 
 
@@ -20,7 +21,10 @@ export class ActorComponent implements OnInit {
 	// 	"padding-top": 20px
 	// }
 
-  constructor() { }
+  constructor(
+    private ContractSer: ContractService,
+    private router: Router,
+    ) { }
 
   ngOnInit() {
   	console.log(this.isEmbedded)
@@ -32,7 +36,13 @@ export class ActorComponent implements OnInit {
   Submit() {
   	if (this.isEmbedded) {
   		this.ResultActor.emit(this.Actor);
-  	}
+  	} else {
+      this.ContractSer.NewActor(this.Actor).subscribe(() => {
+         this.router.navigate(['/']);
+      }, err => {
+        alert("an error occured, try again later")
+      })
+    }
   }
 
 }
