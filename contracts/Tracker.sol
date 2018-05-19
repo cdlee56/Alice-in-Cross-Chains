@@ -1,7 +1,8 @@
 pragma solidity ^0.4.18;
-contract CryptoProfsMarket {
+contract Tracker {
 
     address public owner;
+    address public owner2;
 
     mapping (uint => address) public profToOwner;
 
