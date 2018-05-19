@@ -1,0 +1,25 @@
+<div class="container" style="padding-left: 20px; padding-top: 20px;">
+  <h2 class="title">
+    Create New Precinct
+  </h2>
+
+  <div class="column">
+    <div class="row" style="width:500px">
+      <h2>
+        <div *ngIf="ProfEmployer == 'Nobody'">
+          <a class="button is-primary" (click)="Claim()">Hire Unemployed Prof for 0.0021ETH</a>
+        </div>
+
+        <div *ngIf="ProfEmployer == 'You'">
+          <a *ngIf="CurrentBid != 'None'" class="button is-primary" (click)="Accept()">Accept Offer</a>
+        </div>
+
+        <div *ngIf="(ProfEmployer != 'Nobody') && (ProfEmployer != 'You')">
+          <input [(ngModel)]="BidAmount" class="input is-primary" type="number" placeholder="Your Offer (ETH)" >
+
+          <a class="button is-primary" (click)="Bid()">Make An Offer</a>
+        </div>
+      </h2>
+    </div>
+  </div>
+</div>

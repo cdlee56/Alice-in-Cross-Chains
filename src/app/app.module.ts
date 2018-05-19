@@ -8,7 +8,8 @@ import { RouterModule } from '@angular/router';
 import { ContractService, Web3Service } from '../services/services';
 import { HomeComponent } from './home/home.component';
 
-import {routing} from './app.routing'
+import {routing} from './app.routing';
+import { PrecinctComponent } from './precinct/precinct.component'
 
 const SERVICES = [
   ContractService,
@@ -26,6 +27,7 @@ const SERVICES = [
   declarations: [
     AppComponent,
     HomeComponent,
+    PrecinctComponent,
   ],
   providers: [SERVICES],
   bootstrap: [AppComponent]
