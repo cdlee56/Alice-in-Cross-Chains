@@ -1,4 +1,4 @@
-strut Sheriff {
+struct Sheriff {
 
   contract PrecinctList {
         {
