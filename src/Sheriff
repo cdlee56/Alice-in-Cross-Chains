@@ -1,0 +1,18 @@
+progma ^
+
+strut Sheriff {
+
+  string newPrecinct Name;
+  string newPrecinct Address;
+  string Sheriff Name;
+  uint Sheriff BadgeNumber;
+  string Sheriff Title; 
+  mapping (string => admin) sheriff;
+  mapping (string => actor) sheriff;
+  }
+  
+    
+  function addPrecinctList(uint PrecinctId) public returns (uint PrecinctId) {
+  PrecinctId = numPrecinctId++;
+  }
+  
