@@ -71,18 +71,39 @@ export class ContractService {
     });
   }
 
-  GetPermission(): Observable<any> {
+  GetPrecinctByActor(): Observable<any> {
+    return Observable.create(observer => {
+      this.GetActor().subscribe(
+        Actor => {
+          this.GetPrecinct(Actor.PrecinctID).subscribe(
+            Precinct => {
+              observer.next(Precinct);
+              observer.complete();
+            },
+            err => {
+              observer.error(err);
+            }
+          );
+        },
+        err => {
+          observer.error(err);
+        }
+      );
+    });
+  }
+
+  GetActor(): Observable<any> {
     let contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
           contract = instance;
-          return contract.addrToPerson.call({
+          return contract.actorMap.call({
             from: this.Web3Ser.Account
           });
         })
-        .then((addrToPerson: any) => {
-          observer.next(addrToPerson);
+        .then((Actor: any) => {
+          observer.next(Actor);
           observer.complete();
         })
         .catch(e => {
@@ -90,4 +111,44 @@ export class ContractService {
         });
     });
   }
+
+  GetPrecinct(PrecinctID): Observable<any> {
+    let contract;
+    return Observable.create(observer => {
+      this.ChainOfCustody.deployed()
+        .then(instance => {
+          contract = instance;
+          return contract.precinctMap.call(PrecinctID, {
+            from: this.Web3Ser.Account
+          });
+        })
+        .then((Precinct: any) => {
+          observer.next(Precinct);
+          observer.complete();
+        })
+        .catch(e => {
+          observer.error(e);
+        });
+    });
+  }
+
+  GetPermission(): Observable<any> {
+      let contract;
+      return Observable.create(observer => {
+        this.ChainOfCustody.deployed()
+          .then(instance => {
+            contract = instance;
+            return contract.addrToPerson.call({
+              from: this.Web3Ser.Account
+            });
+          })
+          .then((addrToPerson: any) => {
+            observer.next(addrToPerson);
+            observer.complete();
+          })
+          .catch(e => {
+            observer.error(e);
+          });
+      });
+    }
 }
