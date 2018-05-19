@@ -13,7 +13,6 @@ contract ChainOfCustody {
       	_;
     }
 
-    /* Initializes contract with initial supply tokens to the creator of the contract */
     function ChainOfCustody() public payable {
     }
 
