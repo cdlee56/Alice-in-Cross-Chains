@@ -16,6 +16,21 @@ contract ChainOfCustody {
     function ChainOfCustody() public payable {
     }
 
+    struct Actor{
+    	string precinctID; 
+        string name; 
+        string badgeNumber; 
+        string title;
+        bool isAdmin; 
+    }
+
+    struct Precinct{
+        string precinctAddress; 
+        string sherifName;
+        string badgeNumber; 
+        string title;
+    }
+
     function NewPrecinct(
         string precinctName, 
         string precinctAddress, 
