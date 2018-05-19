@@ -16,7 +16,7 @@ const LOAD_NUM = 1000
 export class HomeComponent implements OnInit {
 
   constructor(
-    private CryptoProfSer: CryptoProfService,
+    private CryptoProfSer: ContractService,
     private Web3Ser: Web3Service,
     ) {
    }

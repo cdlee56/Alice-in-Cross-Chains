@@ -25,6 +25,7 @@
     "compile": "0.0.2",
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
+    "truffle-hdwallet-provider": "0.0.5",
     "web3": "^0.18.4",
     "zone.js": "^0.8.4"
   },

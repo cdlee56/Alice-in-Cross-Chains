@@ -5,14 +5,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 
-import { CryptoProfService, Web3Service } from '../services/services';
+import { ContractService, Web3Service } from '../services/services';
 import { HomeComponent } from './home/home.component';
-import { ProfComponent } from './prof/prof.component'
 
 import {routing} from './app.routing'
 
 const SERVICES = [
-  CryptoProfService,
+  ContractService,
   Web3Service,
 ]
 
@@ -27,7 +26,6 @@ const SERVICES = [
   declarations: [
     AppComponent,
     HomeComponent,
-    ProfComponent
   ],
   providers: [SERVICES],
   bootstrap: [AppComponent]
