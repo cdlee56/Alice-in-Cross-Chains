@@ -150,5 +150,5 @@ export class ContractService {
             observer.error(e);
           });
       });
-    }
+  }
 }
