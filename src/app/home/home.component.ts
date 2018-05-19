@@ -8,7 +8,8 @@ import { ContractService, Web3Service } from "../../services/services";
   styleUrls: ["./home.component.css"]
 })
 export class HomeComponent implements OnInit {
-  public isUnknown: boolean = true;
+  public isKnown: boolean = false;
+  public isAdmin: boolean = false;
 
   constructor(
     private ContractSer: ContractService,
@@ -16,7 +17,13 @@ export class HomeComponent implements OnInit {
   ) {
     this.ContractSer.GetPermission().subscribe(
       result => {
-        this.isUnknown = false;
+        if (result){
+          this.isKnown = true;
+        }
+
+        if (result[4]){
+          this.isAdmin = true;
+        }
       },
       err => {
         console.log("something broke:", err);

@@ -20,21 +20,24 @@ contract ChainOfCustody {
     struct Precinct{
     	uint ID;
         string Name; 
+        string Address;
     }
 
     mapping (address => Actor) public actorMap;
     mapping (uint => Precinct) public precinctMap;
 
+    uint PrecinctIDCounter = 0;
+
     function NewPrecinct(
-    	uint precinctID,
         string precinctName,
+        string precinctAddress,
         string actorName, 
         string badgeNumber, 
         string title) 
     public {
-        // Precinct newPrecinct = 
-        precinctMap[precinctID] = Precinct(precinctID, precinctName); //Map id to precinct
-        NewActor(precinctID, actorName, badgeNumber, title, true); //Create first admin
+        uint ID = PrecinctIDCounter++;
+        precinctMap[ID] = Precinct(ID, precinctName, precinctAddress); //Map id to precinct
+        NewActor(ID, actorName, badgeNumber, title, true); //Create first admin
     }
 
     function NewActor(

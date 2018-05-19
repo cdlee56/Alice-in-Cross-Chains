@@ -17,10 +17,13 @@ export class ContractService {
   }
 
   NewPrecinct(newPrecinct: Precinct, Sherif: Actor): Observable<any> {
+    var contract
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          return instance.NewPrecinct(
+          contract = instance
+          // debugger
+          return contract.NewPrecinct(
             newPrecinct.Name,
             newPrecinct.Address,
             Sherif.Name,
@@ -32,10 +35,12 @@ export class ContractService {
           );
         })
         .then(() => {
+          // debugger
           observer.next();
           observer.complete();
         })
         .catch(e => {
+          // debugger
           console.log(e);
           observer.error(e);
         });
