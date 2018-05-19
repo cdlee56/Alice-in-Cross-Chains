@@ -1,8 +1,5 @@
 pragma solidity ^0.4.18;
-contract Tracker {
-
-    address public owner;
-    address public owner2;
+contract ChainOfCustody {
 
     mapping (uint => address) public profToOwner;
 
@@ -17,8 +14,7 @@ contract Tracker {
     }
 
     /* Initializes contract with initial supply tokens to the creator of the contract */
-    function CryptoProfsMarket() public payable {
-        owner = msg.sender;
+    function ChainOfCustody() public payable {
     }
 
     function ClaimProf(uint _profId) 

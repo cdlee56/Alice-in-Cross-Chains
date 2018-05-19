@@ -1,5 +1,5 @@
-var Tracker = artifacts.require("./Tracker.sol");
+var ChainOfCustody = artifacts.require("./ChainOfCustody.sol");
 
 module.exports = function(deployer) {
-  deployer.deploy(Tracker);
+  deployer.deploy(ChainOfCustody);
 };
