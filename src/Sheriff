@@ -1,6 +1,10 @@
-progma ^
-
 strut Sheriff {
+
+  contract PrecinctList {
+        {
+      address addr;
+      uint numPrecinctId;
+     
 
   string newPrecinct Name;
   string newPrecinct Address;
