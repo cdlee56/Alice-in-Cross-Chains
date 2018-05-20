@@ -158,13 +158,19 @@ export class ContractService {
     });
   }
 
-  GetActor(): Observable<any> {
+  GetActor(Address: string = ""): Observable<any> {
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          return instance.actorMap.call(this.Web3Ser.Account, {
-            from: this.Web3Ser.Account
-          });
+          if (Address == ""){
+            return instance.actorMap.call(this.Web3Ser.Account, {
+              from: this.Web3Ser.Account
+            });
+          } else {
+            return instance.actorMap.call(Address, {
+              from: this.Web3Ser.Account
+            });
+          }
         })
         .then((Actor: any) => {
           observer.next(Actor);
@@ -373,12 +379,24 @@ export class ContractService {
           var action = new Action();
           action.ID = result[0].toNumber();
           action.EvidenceID = result[1].toNumber();
-          action.Who = result[2];
+          
           action.What = result[3];
           action.When = new Date(result[4] * 1000).toString();
           action.Location = result[5];
-          observer.next(action);
-          observer.complete();
+
+          this.GetActor(result[2]).subscribe(actor => {
+            console.log(actor)
+            // debugger
+            action.Who = actor[1];
+            observer.next(action);
+            observer.complete();
+          }, err => {
+            observer.error(err);
+          })
+
+          // observer.next(action);
+          // observer.complete();
+          
         })
         .catch(e => {
           observer.error(e);
