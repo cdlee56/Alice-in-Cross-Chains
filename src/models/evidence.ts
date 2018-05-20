@@ -3,8 +3,10 @@ import { Action } from './action'
 
 export class Evidence {
 	ID: number;
+	PrecinctID: number;
 	Title: string;
 	What: string;
-	img: string;
+	Image: string;
 	Actions: Action[] = []
+	ActionCount: number;
 }

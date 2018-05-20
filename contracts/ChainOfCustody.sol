@@ -30,6 +30,8 @@ contract ChainOfCustody {
         uint precinctID;
 
         string image;
+        string title;
+        string description;
 
         mapping(uint => Action) actions;
         uint actionCount;
@@ -42,6 +44,24 @@ contract ChainOfCustody {
         string action;
         uint256 timestamp;
         string location;
+    }
+
+    function GetEvidence(uint precinctID, uint evidenceID) public constant returns(        
+        uint,
+        uint,
+        string,
+        string,
+        string,
+        uint){
+        Evidence storage ev = precinctMap[precinctID].evidence[evidenceID];
+
+        return (
+            ev.ID,
+            ev.precinctID,
+            ev.image,
+            ev.title,
+            ev.description,
+            ev.actionCount);
     }
 
     mapping (address => Actor) public actorMap;
@@ -79,20 +99,26 @@ contract ChainOfCustody {
     }
 
     function NewEvidence(
-        uint precinctID, 
+        // uint precinctID, 
         string img,
+        string title,
+        string description,
         string action,
         string location) 
     public {
-        Precinct storage pre = precinctMap[precinctID];
+        Actor storage act = actorMap[msg.sender];
+
+        Precinct storage pre = precinctMap[act.precinctID];
         pre.evidence[pre.evidenceCount++] = Evidence({
             ID: pre.evidenceCount,
             precinctID: pre.ID,
             image: img,
+            title: title,
+            description: description,
             actionCount: 0
             });
 
-        NewAction(precinctID, pre.evidenceCount, action, location);
+        NewAction(act.precinctID, pre.evidenceCount, action, location);
     }
 
 

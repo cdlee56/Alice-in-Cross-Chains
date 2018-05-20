@@ -21,8 +21,8 @@ export class EvidenceFormComponent implements OnInit {
   }
 
   Submit(Action) {
-    // this.Evidence.Actions[0] = Action
-    console.log(this.Evidence)
+    this.Evidence.Actions[0] = Action
+    // console.log(this.Evidence)
 
   	this.ContractSer.NewEvidence(this.Evidence).subscribe(() => {
       // localStorage.setItem('precinct', this.Precinct.ID);

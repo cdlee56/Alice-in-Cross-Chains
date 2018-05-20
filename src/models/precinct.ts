@@ -5,4 +5,5 @@ export class Precinct {
 	Name: string;
 	Address: string;
 	Evidence: Evidence[];
+	EvidenceCount: number;
 }
