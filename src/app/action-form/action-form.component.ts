@@ -42,11 +42,11 @@ export class ActionFormComponent implements OnInit {
   	if (this.isEmbedded) {
   		this.ResultAction.emit(this.Action);
   	} else {
-      // this.ContractSer.NewAction(this.Action).subscribe(() => {
-      //    this.router.navigate(['/']);
-      // }, err => {
-      //   alert("an error occured, try again later")
-      // })
+      this.ContractSer.NewAction(this.Action, this.EvidenceID).subscribe(() => {
+         this.router.navigate(['/evidence/' + this.EvidenceID]);
+      }, err => {
+        alert("an error occured, try again later")
+      })
     }
   }
 

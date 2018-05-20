@@ -20,6 +20,7 @@ export class EvidenceComponent implements OnInit {
   		// debugger;
       localStorage.setItem('precinct', Precinct);
   		this.list = Precinct.Evidence
+      console.log("Evidence: ",Precinct.Evidence)
   	}, err => {
       console.log(err)
   		alert("an error occured")

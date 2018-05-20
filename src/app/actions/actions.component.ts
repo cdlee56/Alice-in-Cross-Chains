@@ -23,12 +23,13 @@ export class ActionsComponent implements OnInit {
   	this.ARouteSer.params.subscribe(params => {
   	   this.ID = params['ID'];
 
-  	   // this.ContractSer.GetEvidenceByID().subscribe(Evidence => {
-  	   // 	// debugger;
-  	   // 	this.list = Evidence.Actions
-  	   // }, err => {
-  	   // 	alert("an error occured")
-  	   // })
+  	   this.ContractSer.GetAllActionsForEvidenceByID(this.ID).subscribe(result => {
+  	   	// debugger;
+  	   	this.list = result.slice(0,-1)
+         console.log("in actions: ", this.list)
+  	   }, err => {
+  	   	alert("an error occured")
+  	   })
   	});
   }
 

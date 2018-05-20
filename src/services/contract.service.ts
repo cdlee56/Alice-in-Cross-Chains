@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import { Web3Service } from "./web3.service";
 
-import { Precinct, Actor, Evidence } from "../models/models";
+import { Precinct, Actor, Evidence, Action } from "../models/models";
 
 const ContractArtifacts = require("../../build/contracts/ChainOfCustody.json");
 const contract = require("truffle-contract");
@@ -17,11 +17,11 @@ export class ContractService {
   }
 
   NewPrecinct(newPrecinct: Precinct, Sherif: Actor): Observable<any> {
-    var contract
+    var contract;
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          contract = instance
+          contract = instance;
           // debugger
           return contract.NewPrecinct(
             newPrecinct.Name,
@@ -41,7 +41,7 @@ export class ContractService {
         })
         .catch(e => {
           // debugger
-          console.log(e);
+          // console.log(e);
           observer.error(e);
         });
     });
@@ -51,9 +51,9 @@ export class ContractService {
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          console.log(actor)
-          let precinct = localStorage.getItem('precinct')
-          let isAdmin = JSON.stringify(actor.IsAdmin)
+          // console.log(actor);
+          let precinct = localStorage.getItem("precinct");
+          let isAdmin = JSON.stringify(actor.IsAdmin);
           // debugger
           return instance.NewActor(
             0,
@@ -72,7 +72,7 @@ export class ContractService {
           observer.complete();
         })
         .catch(e => {
-          console.log(e);
+          // console.log(e);
           observer.error(e);
         });
     });
@@ -83,7 +83,7 @@ export class ContractService {
       this.ChainOfCustody.deployed()
         .then(instance => {
           // var precinct = JSON.parse(localStorage.getItem('precinct'))
-          console.log(evidence)
+          // console.log(evidence);
           // debugger;
           return instance.NewEvidence(
             // precinct.id,
@@ -102,7 +102,35 @@ export class ContractService {
           observer.complete();
         })
         .catch(e => {
-          console.log(e);
+          // console.log(e);
+          observer.error(e);
+        });
+    });
+  }
+
+  NewAction(action: Action, EvidenceID: number): Observable<any> {
+    return Observable.create(observer => {
+      this.ChainOfCustody.deployed()
+        .then(instance => {
+          // var precinct = JSON.parse(localStorage.getItem('precinct'))
+          // console.log(action);
+          // debugger;
+          return instance.NewAction(
+            // precinct.id,
+            EvidenceID,
+            action.What,
+            action.Location,
+            {
+              from: this.Web3Ser.Account
+            }
+          );
+        })
+        .then(() => {
+          observer.next();
+          observer.complete();
+        })
+        .catch(e => {
+          // console.log(e);
           observer.error(e);
         });
     });
@@ -112,7 +140,7 @@ export class ContractService {
     return Observable.create(observer => {
       this.GetActor().subscribe(
         Actor => {
-          console.log(Actor)
+          // console.log(Actor);
           this.GetPrecinct(Actor[0]).subscribe(
             Precinct => {
               observer.next(Precinct);
@@ -157,22 +185,27 @@ export class ContractService {
           });
         })
         .then((PrecinctArr: any) => {
-          console.log(PrecinctArr)
-          var precinct = new Precinct()
-          precinct.ID = PrecinctArr[0]
-          precinct.Name = PrecinctArr[1]
-          precinct.Address = PrecinctArr[2]
-          precinct.EvidenceCount = PrecinctArr[3].toNumber()
-          this.GetAllEvidenceForPrecinct(precinct.ID, precinct.EvidenceCount).subscribe(result => {
-            precinct.Evidence = result
-            console.log(result)  
-            observer.next(precinct);
-            observer.complete();
-          }, err => {
-            observer.error(err);
-          })
-          
-          
+          // console.log(PrecinctArr);
+          var precinct = new Precinct();
+          precinct.ID = PrecinctArr[0].toNumber();
+          precinct.Name = PrecinctArr[1];
+          precinct.Address = PrecinctArr[2];
+          precinct.EvidenceCount = PrecinctArr[3].toNumber();
+
+          this.GetAllEvidenceForPrecinct(
+            precinct.ID,
+            precinct.EvidenceCount
+          ).subscribe(
+            result => {
+              precinct.Evidence = result;
+              // console.log(result);
+              observer.next(precinct);
+              observer.complete();
+            },
+            err => {
+              observer.error(err);
+            }
+          );
         })
         .catch(e => {
           observer.error(e);
@@ -180,31 +213,116 @@ export class ContractService {
     });
   }
 
-  GetAllEvidenceForPrecinct(PrecinctID: string, EvidenceCount:number, idx:number = 0): Observable<Evidence[]>{
+  GetAllEvidenceForPrecinct(
+    PrecinctID: string,
+    EvidenceCount: number,
+    idx: number = 0
+  ): Observable<Evidence[]> {
     if (EvidenceCount == idx) {
       return Observable.create(observer => {
-        observer.next([])
-        observer.complete()
-      })
+        observer.next([]);
+        observer.complete();
+      });
     }
     if (EvidenceCount == null) {
-      return this.GetAllEvidenceForPrecinct(PrecinctID, idx+1)
+      return this.GetAllEvidenceForPrecinct(PrecinctID, idx + 1);
     }
     return Observable.create(observer => {
-      this.GetEvidenceForPrecinct(PrecinctID, idx).subscribe(result =>{
-        this.GetAllEvidenceForPrecinct(PrecinctID, EvidenceCount, idx+1).subscribe(pluralResult => {
-          observer.next(pluralResult.concat(result))
-          observer.complete()
-        }, err => {
-          //bubble up, no comment
-          observer.error(err)
-        })
-      }, err => {
-        observer.error("idx "+ idx + err)
-      })
-    })
+      this.GetEvidenceForPrecinct(PrecinctID, idx).subscribe(
+        result => {
+          this.GetAllEvidenceForPrecinct(
+            PrecinctID,
+            EvidenceCount,
+            idx + 1
+          ).subscribe(
+            pluralResult => {
+              observer.next(pluralResult.concat(result));
+              observer.complete();
+            },
+            err => {
+              //bubble up, no comment
+              observer.error(err);
+            }
+          );
+        },
+        err => {
+          observer.error("idx " + idx + err);
+        }
+      );
+    });
   }
 
+  GetAllActionsForEvidenceByID(EvidenceID: number): Observable<Action[]> {
+    return Observable.create(observer => {
+      this.GetPrecinctByActor().subscribe(
+        precinct => {
+          console.log("precinct.ID", precinct.ID)
+          console.log("EvidenceID", EvidenceID)
+          console.log("precinct.action[EvidenceID].ActionCount", precinct.Evidence[EvidenceID])
+          console.log("precinct.action[EvidenceID].ActionCount", precinct.Evidence[EvidenceID].ActionCount)
+          // debugger;
+          this.GetAllActionsForEvidence(
+            precinct.ID,
+            EvidenceID,
+            precinct.Evidence[EvidenceID].ActionCount
+          ).subscribe(
+            result => {
+              // debugger;
+              observer.next(result);
+              observer.complete();
+            },
+            err => {
+              observer.error(err);
+            }
+          );
+        },
+        err => {
+          observer.error(err);
+        }
+      );
+    });
+  }
+
+  GetAllActionsForEvidence(
+    PrecinctID: string,
+    EvidenceID: number,
+    ActionCount: number,
+    idx: number = 0
+  ): Observable<Action[]> {
+    if (ActionCount == idx) {
+      return Observable.create(observer => {
+        observer.next([]);
+        observer.complete();
+      });
+    }
+    if (ActionCount == null) {
+      return this.GetAllActionsForEvidence(PrecinctID, EvidenceID, idx + 1);
+    }
+    return Observable.create(observer => {
+      this.GetActionForEvidence(PrecinctID, EvidenceID, idx).subscribe(
+        result => {
+          this.GetAllActionsForEvidence(
+            PrecinctID,
+            EvidenceID,
+            ActionCount,
+            idx + 1
+          ).subscribe(
+            pluralResult => {
+              observer.next(pluralResult.concat(result));
+              observer.complete();
+            },
+            err => {
+              //bubble up, no comment
+              observer.error(err);
+            }
+          );
+        },
+        err => {
+          observer.error("idx " + idx + err);
+        }
+      );
+    });
+  }
 
   GetEvidenceForPrecinct(PrecinctID, EvidenceIdx): Observable<Evidence> {
     return Observable.create(observer => {
@@ -215,15 +333,51 @@ export class ContractService {
           });
         })
         .then((result: any) => {
-          console.log(result)
-          var evidence = new Evidence()
-          evidence.ID = result[0].toNumber()
-          evidence.PrecinctID = result[1].toNumber()
-          evidence.Image = result[2]
-          evidence.Title = result[3]
-          evidence.What = result[4]
-          evidence.ActionCount = result[5].toNumber()
+          console.log(result);
+          var evidence = new Evidence();
+          evidence.ID = result[0].toNumber();
+          evidence.PrecinctID = result[1].toNumber();
+          evidence.Image = result[2];
+          evidence.Title = result[3];
+          evidence.What = result[4];
+          evidence.ActionCount = result[5].toNumber();
+          // debugger
+          this.GetActionForEvidence(PrecinctID, EvidenceIdx, 1).subscribe(
+            result => {
+              evidence.Actions[0] = result;
+            },
+            err => {
+              observer.error("couldn't get 0th action:", err);
+            }
+          );
           observer.next(evidence);
+          observer.complete();
+        })
+        .catch(e => {
+          observer.error(e);
+        });
+    });
+  }
+
+  GetActionForEvidence(PrecinctID, EvidenceIdx, ActionIdx): Observable<Action> {
+    return Observable.create(observer => {
+      this.ChainOfCustody.deployed()
+        .then(instance => {
+          return instance.GetAction(PrecinctID, EvidenceIdx, ActionIdx, {
+            from: this.Web3Ser.Account
+          });
+        })
+        .then((result: any) => {
+          // console.log(result);
+          // debugger;
+          var action = new Action();
+          action.ID = result[0].toNumber();
+          action.EvidenceID = result[1].toNumber();
+          action.Who = result[2];
+          action.What = result[3];
+          action.When = result[4];
+          action.Location = result[5];
+          observer.next(action);
           observer.complete();
         })
         .catch(e => {

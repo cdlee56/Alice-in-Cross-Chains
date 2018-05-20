@@ -1,7 +1,9 @@
 import {Actor} from './actor'
 
 export class Action {
-	Who: Actor;
+	ID: number;
+	EvidenceID: number;
+	Who: string;
 	What: string;
 	When: string;
 	Location: string;

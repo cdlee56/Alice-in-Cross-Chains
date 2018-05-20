@@ -4,7 +4,6 @@
 </a>
 <div *ngFor="let action of list">
 	<br>
-	(click)=""
 	<div class="card" (click)="Open(action)">
 	  <div class="card-content">
 	    <div class="media">
@@ -15,15 +14,15 @@
 	        </figure>
 	      </div>
 	      <div class="media-content">
-	        <p class="title is-4">{{action.Title}}</p>
-	        <p class="subtitle is-6">{{action.Actions[0].Who.Name}}</p>
+	        <p class="title is-4">{{action.What}}</p>
+	        <p class="subtitle is-6">{{action.Who}}</p>
 	      </div>
 	    </div>
 
 	    <div class="content">
 	      {{action.What}}
 	      <br>
-	      <time datetime="2016-1-1">{{action.Actions[0].When}}</time>
+	      <time datetime="2016-1-1">{{action.When}}</time>
 	    </div>
 	  </div>
 	</div>
