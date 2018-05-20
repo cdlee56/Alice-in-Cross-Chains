@@ -21,9 +21,32 @@ contract ChainOfCustody {
     	uint ID;
         string Name; 
         string Address;
+        mapping(uint => Evidence) evidence;
+        uint evidenceCount;
+    }
+
+    struct Evidence{
+        uint ID;
+        uint precinctID;
+
+        string image;
+
+        mapping(uint => Evidence) actions;
+        uint actionCount;
+    }
+
+    struct Action{
+        uint ID;
+        uint evidenceID;
+        address actor;
+        string action;
+        string timestamp;
+        string location;
     }
 
     mapping (address => Actor) public actorMap;
+    
+    //refactor into array?
     mapping (uint => Precinct) public precinctMap;
 
     uint PrecinctIDCounter = 0;
@@ -36,7 +59,10 @@ contract ChainOfCustody {
         string title) 
     public {
         uint ID = PrecinctIDCounter++;
-        precinctMap[ID] = Precinct(ID, precinctName, precinctAddress); //Map id to precinct
+        // ID, precinctName, precinctAddress
+        precinctMap[ID] = Precinct({ID: ID, Name: precinctName, Address: precinctAddress,evidenceCount: 0}); 
+
+        //Map id to precinct
         NewActor(ID, msg.sender, actorName, badgeNumber, title, true); //Create first admin
     }
 
@@ -50,5 +76,25 @@ contract ChainOfCustody {
     public {
     	// Actor storage newactor = 
         actorMap[addr] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
+    }
+
+    function NewEvidence(
+        uint precinctID, 
+        string img,
+        address actor,
+        string action,
+        string timestamp,
+        string location
+        ) 
+    public {
+        Precinct storage pre = precinctMap[precinctID];
+        pre.evidence[pre.evidenceCount++] = Evidence({
+            ID: pre.evidenceCount,
+            precinctID: pre.ID,
+            image: img,
+            actionCount: 0
+            });
+
+        // actorMap[actor] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
     }
 }
