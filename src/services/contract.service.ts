@@ -41,7 +41,7 @@ export class ContractService {
         })
         .catch(e => {
           // debugger
-          // console.log(e);
+          console.log(e);
           observer.error(e);
         });
     });
@@ -51,7 +51,7 @@ export class ContractService {
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
-          // console.log(actor);
+          console.log(actor);
           let precinct = localStorage.getItem("precinct");
           let isAdmin = JSON.stringify(actor.IsAdmin);
           // debugger
@@ -72,7 +72,7 @@ export class ContractService {
           observer.complete();
         })
         .catch(e => {
-          // console.log(e);
+          console.log(e);
           observer.error(e);
         });
     });
@@ -83,7 +83,7 @@ export class ContractService {
       this.ChainOfCustody.deployed()
         .then(instance => {
           // var precinct = JSON.parse(localStorage.getItem('precinct'))
-          // console.log(evidence);
+          console.log(evidence);
           // debugger;
           return instance.NewEvidence(
             // precinct.id,
@@ -102,7 +102,7 @@ export class ContractService {
           observer.complete();
         })
         .catch(e => {
-          // console.log(e);
+          console.log(e);
           observer.error(e);
         });
     });
@@ -113,7 +113,7 @@ export class ContractService {
       this.ChainOfCustody.deployed()
         .then(instance => {
           // var precinct = JSON.parse(localStorage.getItem('precinct'))
-          // console.log(action);
+          console.log(action);
           // debugger;
           return instance.NewAction(
             // precinct.id,
@@ -130,7 +130,7 @@ export class ContractService {
           observer.complete();
         })
         .catch(e => {
-          // console.log(e);
+          console.log(e);
           observer.error(e);
         });
     });
@@ -140,7 +140,7 @@ export class ContractService {
     return Observable.create(observer => {
       this.GetActor().subscribe(
         Actor => {
-          // console.log(Actor);
+          console.log(Actor);
           this.GetPrecinct(Actor[0]).subscribe(
             Precinct => {
               observer.next(Precinct);
@@ -333,7 +333,7 @@ export class ContractService {
           });
         })
         .then((result: any) => {
-          console.log(result);
+          // console.log(result);
           var evidence = new Evidence();
           evidence.ID = result[0].toNumber();
           evidence.PrecinctID = result[1].toNumber();
@@ -368,14 +368,14 @@ export class ContractService {
           });
         })
         .then((result: any) => {
-          // console.log(result);
+          console.log(result);
           // debugger;
           var action = new Action();
           action.ID = result[0].toNumber();
           action.EvidenceID = result[1].toNumber();
           action.Who = result[2];
           action.What = result[3];
-          action.When = result[4];
+          action.When = new Date(result[4] * 1000).toString();
           action.Location = result[5];
           observer.next(action);
           observer.complete();
