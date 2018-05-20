@@ -31,7 +31,7 @@ contract ChainOfCustody {
 
         string image;
 
-        mapping(uint => Evidence) actions;
+        mapping(uint => Action) actions;
         uint actionCount;
     }
 
@@ -40,7 +40,7 @@ contract ChainOfCustody {
         uint evidenceID;
         address actor;
         string action;
-        string timestamp;
+        uint256 timestamp;
         string location;
     }
 
@@ -83,9 +83,7 @@ contract ChainOfCustody {
         string img,
         address actor,
         string action,
-        string timestamp,
-        string location
-        ) 
+        string location) 
     public {
         Precinct storage pre = precinctMap[precinctID];
         pre.evidence[pre.evidenceCount++] = Evidence({
@@ -95,6 +93,25 @@ contract ChainOfCustody {
             actionCount: 0
             });
 
-        // actorMap[actor] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
+        NewAction(precinctID, pre.evidenceCount, actor, action, location);
+    }
+
+
+    function NewAction(
+        uint precinctID, 
+        uint evidenceID,
+        address actor,
+        string action,
+        string location) 
+    public {
+        Evidence storage ev = precinctMap[precinctID].evidence[evidenceID];
+        ev.actions[ev.actionCount++] = Action({
+            ID: ev.actionCount,
+            evidenceID: evidenceID,
+            actor: actor,
+            action: action,
+            timestamp: block.timestamp,
+            location: location
+            });
     }
 }
