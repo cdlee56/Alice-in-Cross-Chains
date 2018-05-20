@@ -12,6 +12,8 @@ export class ActionsComponent implements OnInit {
 
 	list: Action[];
 
+  ID: number;
+
   constructor(
   	private ContractSer: ContractService,
     private router: Router,
@@ -19,7 +21,7 @@ export class ActionsComponent implements OnInit {
   	) { 
 
   	this.ARouteSer.params.subscribe(params => {
-  	   var ID = params['ID'];
+  	   this.ID = params['ID'];
 
   	   // this.ContractSer.GetEvidenceByID().subscribe(Evidence => {
   	   // 	// debugger;
@@ -34,7 +36,12 @@ export class ActionsComponent implements OnInit {
   }
 
   // Open(Evidence: Evidence){
-  //   this.router.navigate(['evidence/' + Evidence.ID]);
+    // this.router.navigate(['evidence/' + Evidence.ID]);
   // }
+
+  NewAction(){
+    console.log("wow")
+    this.router.navigate(['evidence/' + this.ID + '/newAction']);
+  }
 
 }

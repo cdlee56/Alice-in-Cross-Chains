@@ -17,7 +17,7 @@ export const routes: Routes = [
   // { path: 'precinct/:ID', component: EvidenceComponent, pathMatch: 'full' },
   { path: 'evidence/:ID', component: ActionsComponent, pathMatch: 'full' },
   { path: 'newEvidence', component: EvidenceFormComponent, pathMatch: 'full' },
-  { path: 'newAction', component: ActionFormComponent, pathMatch: 'full' },
+  { path: 'evidence/:ID/newAction', component: ActionFormComponent, pathMatch: 'full' },
   { path: '**', redirectTo: '' }
 ];
 

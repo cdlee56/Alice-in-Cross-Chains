@@ -1,3 +1,24 @@
-<p>
-  action-form works!
-</p>
+<h2 class="title">
+  Enter Details
+</h2>
+
+<div class="column">
+  <div class="row" style="width:500px">
+    <textarea [(ngModel)]="Action.What" class="textarea is-primary" type="textarea" placeholder="Describe the Action" ></textarea>
+  </div>
+
+  <br>
+
+  <div class="row" style="width:500px">
+    <input [(ngModel)]="Action.Where" class="input is-primary" type="text" placeholder="Where did this happen?" >
+  </div>
+
+  <br>
+
+  <br *ngIf="!isEmbedded">
+
+  <div class="row" style="width:500px">
+
+    <a class="button is-primary" (click)="Submit()">Submit</a>
+  </div>
+</div>

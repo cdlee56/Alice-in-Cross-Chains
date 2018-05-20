@@ -81,7 +81,6 @@ contract ChainOfCustody {
     function NewEvidence(
         uint precinctID, 
         string img,
-        address actor,
         string action,
         string location) 
     public {
@@ -93,14 +92,13 @@ contract ChainOfCustody {
             actionCount: 0
             });
 
-        NewAction(precinctID, pre.evidenceCount, actor, action, location);
+        NewAction(precinctID, pre.evidenceCount, action, location);
     }
 
 
     function NewAction(
         uint precinctID, 
         uint evidenceID,
-        address actor,
         string action,
         string location) 
     public {
@@ -108,7 +106,7 @@ contract ChainOfCustody {
         ev.actions[ev.actionCount++] = Action({
             ID: ev.actionCount,
             evidenceID: evidenceID,
-            actor: actor,
+            actor: msg.sender,
             action: action,
             timestamp: block.timestamp,
             location: location

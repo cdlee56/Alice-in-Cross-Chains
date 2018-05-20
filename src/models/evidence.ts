@@ -6,5 +6,5 @@ export class Evidence {
 	Title: string;
 	What: string;
 	img: string;
-	Actions: Action[]
+	Actions: Action[] = []
 }

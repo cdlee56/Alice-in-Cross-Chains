@@ -15,9 +15,11 @@
       <textarea [(ngModel)]="Evidence.What" class="textarea is-primary" type="textarea" placeholder="Describe the evidence" ></textarea>
     </div>
     <br>
-    <div class="row" style="width:500px">
+    <!-- <div class="row" style="width:500px">
 
       <a class="button is-primary" (click)="Submit()">Submit</a>
-    </div>
+    </div> -->
+
+    <action-form [isEmbedded]="true" (ResultAction)="Submit($event)"></action-form>
   </div>
 <!-- </div> -->

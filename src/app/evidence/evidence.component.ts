@@ -18,6 +18,7 @@ export class EvidenceComponent implements OnInit {
   	) { 
   	this.ContractSer.GetPrecinctByActor().subscribe(Precinct => {
   		// debugger;
+      localStorage.setItem('precinct', Precinct);
   		this.list = Precinct.Evidence
   	}, err => {
   		alert("an error occured")

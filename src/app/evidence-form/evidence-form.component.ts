@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class EvidenceFormComponent implements OnInit {
 
-	Evidence: Evidence
+	Evidence: Evidence = new Evidence()
 
   constructor(
   	private ContractSer: ContractService,
@@ -20,7 +20,9 @@ export class EvidenceFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  Submit(Actor) {
+  Submit(Action) {
+    // this.Evidence.Actions[0] = Action
+    console.log(this.Evidence)
 
   	this.ContractSer.NewEvidence(this.Evidence).subscribe(() => {
       // localStorage.setItem('precinct', this.Precinct.ID);
