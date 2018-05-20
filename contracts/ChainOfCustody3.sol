@@ -21,14 +21,12 @@ contract ChainOfCustody {
     	uint ID;
         string Name; 
         string Address;
-        Evidence[] evidenceStack;
     }
 
     struct Evidence{
     	string image;
     	uint ID;
     	uint precinctID;
-        Action[] actionStack;
     }
 
     struct Action{
@@ -38,6 +36,10 @@ contract ChainOfCustody {
     	string timestamp;
     	string location;
     }
+
+    Evidence[][] evidenceStack;
+    Action [][] actionStack;
+    uint [] allAction;
 
     //Evidence[] public evidenceStack;
     //Action[] public actionStack;
@@ -54,7 +56,7 @@ contract ChainOfCustody {
         string badgeNumber, 
         string title) 
     public {
-        precinctMap[precinctID] = Precinct(precinctID, precinctName, precinctAddress, Evidence[](0)); //Map id to precinct
+        precinctMap[precinctID] = Precinct(precinctID, precinctName, precinctAddress); //Map id to precinct
         NewActor(precinctID, actorName, badgeNumber, title, true); //Create first admin
     }
 
@@ -71,7 +73,7 @@ contract ChainOfCustody {
     function newEvidence (string image,
         uint ID,
         uint precinctID) public {
-        Evidence memory newevidence = Evidence(image, ID, precinctID, new Action[](0));
+        Evidence memory newevidence = Evidence(image, ID, precinctID);
         evidenceMap[ID] = newevidence;
     }
 
@@ -81,5 +83,6 @@ contract ChainOfCustody {
         string timestamp,
         string location) {
         //actionStack.push(Action(evidenceID, actor, action, timestamp, location));
+        actionStack.push([evidenceID][Action(evidenceID, actor, action, timestamp, location)]);
     }
 }
