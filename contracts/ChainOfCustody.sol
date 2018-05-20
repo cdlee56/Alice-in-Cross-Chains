@@ -2,15 +2,15 @@ pragma solidity ^0.4.18;
 contract ChainOfCustody {
 
     // modifier onlyOwnedBy(address _requester, uint _profId) {
-    // 	require(profToOwner[_profId] == _requester);
-    //   	_;
+    //  require(profToOwner[_profId] == _requester);
+    //      _;
     // }
 
     function ChainOfCustody() public payable {
     }
 
     struct Actor{
-    	uint precinctID; 
+        uint precinctID; 
         string name; 
         string badgeNumber; 
         string title;
@@ -18,23 +18,26 @@ contract ChainOfCustody {
     }
 
     struct Precinct{
-    	uint ID;
+        uint ID;
         string Name; 
+        string Address;
     }
 
-    mapping (address => Actor) actorMap;
-    mapping (uint => Precinct) precinctMap;
+    mapping (address => Actor) public actorMap;
+    mapping (uint => Precinct) public precinctMap;
+
+    uint PrecinctIDCounter = 0;
 
     function NewPrecinct(
-    	uint precinctID,
         string precinctName,
+        string precinctAddress,
         string actorName, 
         string badgeNumber, 
         string title) 
     public {
-        // Precinct newPrecinct = 
-        precinctMap[precinctID] = Precinct(precinctID, precinctName); //Map id to precinct
-        NewActor(precinctID, actorName, badgeNumber, title, true); //Create first admin
+        uint ID = PrecinctIDCounter++;
+        precinctMap[ID] = Precinct(ID, precinctName, precinctAddress); //Map id to precinct
+        NewActor(ID, actorName, badgeNumber, title, true); //Create first admin
     }
 
     function NewActor(
@@ -44,7 +47,7 @@ contract ChainOfCustody {
         string title,
         bool isAdmin) 
     public {
-    	// Actor storage newactor = 
+        // Actor storage newactor = 
         actorMap[msg.sender] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
     }
 }
