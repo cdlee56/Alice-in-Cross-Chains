@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContractService} from "../../services/services";
 import { Evidence } from '../../models/models'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-evidence',
@@ -13,6 +14,7 @@ export class EvidenceComponent implements OnInit {
 
   constructor(
   	private ContractSer: ContractService,
+    private router: Router,
   	) { 
   	this.ContractSer.GetPrecinctByActor().subscribe(Precinct => {
   		// debugger;
@@ -23,6 +25,10 @@ export class EvidenceComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  Open(Evidence: Evidence){
+    this.router.navigate(['evidence/' + Evidence.ID]);
   }
 
 }

@@ -14,7 +14,7 @@ export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'newPrecinct', component: PrecinctComponent, pathMatch: 'full' },
   { path: 'actor', component: ActorComponent, pathMatch: 'full' },
-  { path: 'precinct/:ID', component: EvidenceComponent, pathMatch: 'full' },
+  // { path: 'precinct/:ID', component: EvidenceComponent, pathMatch: 'full' },
   { path: 'evidence/:ID', component: ActionsComponent, pathMatch: 'full' },
   { path: 'newEvidence', component: EvidenceFormComponent, pathMatch: 'full' },
   { path: 'newAction', component: ActionFormComponent, pathMatch: 'full' },
