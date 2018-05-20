@@ -12,7 +12,9 @@ import {routing} from './app.routing';
 import { PrecinctComponent } from './precinct/precinct.component';
 import { ActorComponent } from './actor/actor.component';
 import { EvidenceComponent } from './evidence/evidence.component';
-import { ActionsComponent } from './actions/actions.component'
+import { ActionsComponent } from './actions/actions.component';
+import { EvidenceFormComponent } from './evidence-form/evidence-form.component';
+import { ActionFormComponent } from './action-form/action-form.component'
 
 const SERVICES = [
   ContractService,
@@ -34,6 +36,8 @@ const SERVICES = [
     ActorComponent,
     EvidenceComponent,
     ActionsComponent,
+    EvidenceFormComponent,
+    ActionFormComponent,
   ],
   providers: [SERVICES],
   bootstrap: [AppComponent]

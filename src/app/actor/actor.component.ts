@@ -24,7 +24,12 @@ export class ActorComponent implements OnInit {
   constructor(
     private ContractSer: ContractService,
     private router: Router,
-    ) { }
+    ) { 
+
+    // let precinct = localStorage.getItem('precinct')
+    // debugger
+
+  }
 
   ngOnInit() {
   	console.log(this.isEmbedded)

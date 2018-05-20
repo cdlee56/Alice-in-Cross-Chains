@@ -25,7 +25,11 @@ export class PrecinctComponent implements OnInit {
   	console.log(this.Precinct)
 
   	this.ContractSer.NewPrecinct(this.Precinct, Actor).subscribe(() => {
-  		this.router.navigate(['/']);
+      this.ContractSer.GetActor().subscribe(Actor => {
+        debugger
+            localStorage.setItem('actor', Actor);
+            this.router.navigate(['/']);
+      })
   	}, err => {
   		alert("an error occured, try again later")
   	})

@@ -1,31 +1,37 @@
   <!-- [ngStyle]="PaddingStyle" -->
 <!-- <div class="container" > -->
   <h2 class="title">
-    Enter Your Details
+    Enter Details
   </h2>
 
   <div class="column">
     <div class="row" style="width:500px">
-      <input [(ngModel)]="Actor.Name" class="input is-primary" type="text" placeholder="Your Name" >
+      <input [(ngModel)]="Actor.Name" class="input is-primary" type="text" placeholder="Name" >
+    </div>
+
+    <br>
+
+    <div class="row" style="width:500px">
+      <input [(ngModel)]="Actor.Address" class="input is-primary" type="text" placeholder="Ethereum Address" >
     </div>
 
     <br>
 
     <div class="row" style="width:500px">
 
-      <input [(ngModel)]="Actor.BadgeNumber" class="input is-primary" type="text" placeholder="Your Badge Number" >
+      <input [(ngModel)]="Actor.BadgeNumber" class="input is-primary" type="text" placeholder="Badge Number" >
     </div>
     <br>
 
     <div class="row" style="width:500px">
 
-      <input [(ngModel)]="Actor.Title" class="input is-primary" type="text" placeholder="Your Title" >
+      <input [(ngModel)]="Actor.Title" class="input is-primary" type="text" placeholder="Title" >
     </div>
     <br>
 
     <div *ngIf="!isEmbedded" class="row" style="width:500px">
 
-      <input [(ngModel)]="Actor.isAdmin" class="checkbox is-primary" type="checkbox" placeholder="Your Title" > Allow this person to add more officers
+      <input [checked]="Actor.IsAdmin" (change)="Actor.IsAdmin = !Actor.IsAdmin" class="checkbox is-primary" type="checkbox" placeholder="Title" > Allow this person to add more officers
 
     </div>
 

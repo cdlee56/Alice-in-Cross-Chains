@@ -1,0 +1,23 @@
+<!-- <div class="container" style="padding-left: 20px; padding-top: 20px;"> -->
+  <h2 class="title">
+    Create New Evidence
+  </h2>
+
+  <div class="column">
+    <div class="row" style="width:500px">
+      <input [(ngModel)]="Evidence.Title" class="input is-primary" type="text" placeholder="title of Evidence" >
+    </div>
+
+    <br>
+
+    <div class="row" style="width:500px">
+
+      <textarea [(ngModel)]="Evidence.What" class="textarea is-primary" type="textarea" placeholder="Describe the evidence" ></textarea>
+    </div>
+    <br>
+    <div class="row" style="width:500px">
+
+      <a class="button is-primary" (click)="Submit()">Submit</a>
+    </div>
+  </div>
+<!-- </div> -->

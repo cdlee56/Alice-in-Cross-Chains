@@ -17,7 +17,8 @@ export class HomeComponent implements OnInit {
   ) {
     this.ContractSer.GetPermission().subscribe(
       result => {
-        if (result){
+        console.log(result)
+        if (result[1] != ""){
           this.isKnown = true;
         }
 

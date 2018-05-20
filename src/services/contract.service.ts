@@ -3,7 +3,7 @@ import { Observable } from "rxjs/Observable";
 import { fromPromise } from "rxjs/observable/fromPromise";
 import { Web3Service } from "./web3.service";
 
-import { Precinct, Actor } from "../models/models";
+import { Precinct, Actor, Evidence } from "../models/models";
 
 const ContractArtifacts = require("../../build/contracts/ChainOfCustody.json");
 const contract = require("truffle-contract");
@@ -51,11 +51,17 @@ export class ContractService {
     return Observable.create(observer => {
       this.ChainOfCustody.deployed()
         .then(instance => {
+          console.log(actor)
+          let precinct = localStorage.getItem('precinct')
+          let isAdmin = JSON.stringify(actor.IsAdmin)
+          debugger
           return instance.NewActor(
+            0,
+            actor.Address,
             actor.Name,
             actor.BadgeNumber,
             actor.Title,
-            actor.IsAdmin,
+            isAdmin,
             {
               from: this.Web3Ser.Account
             }
@@ -69,6 +75,33 @@ export class ContractService {
           console.log(e);
           observer.error(e);
         });
+    });
+  }
+
+  NewEvidence(evidence: Evidence): Observable<any> {
+    return Observable.create(observer => {
+      // this.ChainOfCustody.deployed()
+      //   .then(instance => {
+      //     return instance.NewActor(
+      //       localStorage.getItem('precinct'),
+      //       actor.Address,
+      //       actor.Name,
+      //       actor.BadgeNumber,
+      //       actor.Title,
+      //       actor.IsAdmin,
+      //       {
+      //         from: this.Web3Ser.Account
+      //       }
+      //     );
+      //   })
+      //   .then(() => {
+      //     observer.next();
+      //     observer.complete();
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //     observer.error(e);
+      //   });
     });
   }
 

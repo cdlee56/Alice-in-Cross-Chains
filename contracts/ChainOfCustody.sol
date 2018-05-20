@@ -2,15 +2,15 @@ pragma solidity ^0.4.18;
 contract ChainOfCustody {
 
     // modifier onlyOwnedBy(address _requester, uint _profId) {
-    //  require(profToOwner[_profId] == _requester);
-    //      _;
+    // 	require(profToOwner[_profId] == _requester);
+    //   	_;
     // }
 
     function ChainOfCustody() public payable {
     }
 
     struct Actor{
-        uint precinctID; 
+    	uint precinctID; 
         string name; 
         string badgeNumber; 
         string title;
@@ -18,7 +18,7 @@ contract ChainOfCustody {
     }
 
     struct Precinct{
-        uint ID;
+    	uint ID;
         string Name; 
         string Address;
     }
@@ -37,17 +37,18 @@ contract ChainOfCustody {
     public {
         uint ID = PrecinctIDCounter++;
         precinctMap[ID] = Precinct(ID, precinctName, precinctAddress); //Map id to precinct
-        NewActor(ID, actorName, badgeNumber, title, true); //Create first admin
+        NewActor(ID, msg.sender, actorName, badgeNumber, title, true); //Create first admin
     }
 
     function NewActor(
         uint precinctID, 
+        address addr,
         string name, 
         string badgeNumber, 
         string title,
         bool isAdmin) 
     public {
-        // Actor storage newactor = 
-        actorMap[msg.sender] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
+    	// Actor storage newactor = 
+        actorMap[addr] = Actor(precinctID, name, badgeNumber, title, isAdmin); //Create new actor instance
     }
 }
