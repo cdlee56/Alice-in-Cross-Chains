@@ -1,6 +1,8 @@
 
 # Blockchain of Custody
-[DevPost](https://devpost.com/software/blockchain-of-custody)
+- [DevPost](https://devpost.com/software/blockchain-of-custody)
+- Winner of the EthMemphis Legal category
+
 
 ## Setting up dev:
 
